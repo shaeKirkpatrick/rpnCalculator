@@ -1,4 +1,4 @@
-# rpn_calc
+# rpnCalculator
 ## Programming Exercise – RPN Calculator
 Some of the best calculators in the world have an 'RPN' (reverse polish notation) mode.
 We would like you to write a command-line based RPN calculator.
