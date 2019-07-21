@@ -83,7 +83,7 @@ public class Calculator {
         }
     }
 
-    private void performUndo() {
+    private void performUndo() throws InsufficientParametersException {
         if (history.size() > 0) {
             Operator operator = Operator.getOperator(history.pop());
 
@@ -103,7 +103,7 @@ public class Calculator {
                 stack.pop();
             }
         } else {
-            throw new InsufficientParametersException()
+            throw new InsufficientParametersException();
         }
     }
 
