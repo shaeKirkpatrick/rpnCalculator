@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'application'
 
-mainClassName = 'java.shae.rpncalc.Main'
+mainClassName = 'shae.rpncalc.Main'
 
 repositories {
     mavenCentral()
@@ -44,6 +44,6 @@ jar {
     baseName = 'rpnCalculator'
 
     manifest {
-        attributes 'Main-Class': 'java.shae.rpncalc.Main'
+        attributes 'Main-Class': 'shae.rpncalc.Main'
     }
 }

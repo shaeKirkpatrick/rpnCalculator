@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-public class RealNumberStack {
+public class NumberStack {
 
     Stack<BigDecimal> stack;
     DecimalFormat df;
@@ -14,7 +14,7 @@ public class RealNumberStack {
     private int scale;
     private boolean error;
 
-    public RealNumberStack(int scale, int precision) {
+    public NumberStack(int scale, int precision) {
          stack = new Stack<>();
 
         this.scale = scale;

@@ -7,15 +7,17 @@ import java.util.EmptyStackException;
 import java.math.BigDecimal;
 import java.util.Stack;
 
+import static shae.rpncalc.Operator.NOT_OPERATOR;
+
 public class Calculator {
 
-    private RealNumberStack stack;
+    private NumberStack stack;
     private Stack<String> history;
     private int position;
     private String errorOperator;
 
     public Calculator(int scale, int precision){
-        stack = new RealNumberStack(scale, precision);
+        stack = new NumberStack(scale, precision);
         history = new Stack<>();
         position = 0;
         errorOperator = "";
@@ -76,7 +78,7 @@ public class Calculator {
     private void performUndo() {
         Operator operator = Operator.getOperator(history.pop());
 
-        if (operator != null){
+        if (operator != NOT_OPERATOR){
             String lastDigit = history.pop();
             if (operator.equals(Operator.SQRT)) {
                 stack.pop();

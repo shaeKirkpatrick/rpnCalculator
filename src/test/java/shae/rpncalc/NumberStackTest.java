@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class RealNumberStackTest {
+class NumberStackTest {
 
-    RealNumberStack stack = new RealNumberStack(15, 10);
+    NumberStack stack = new NumberStack(15, 10);
     @BeforeEach
      void clearStack(){
         stack.clear();
