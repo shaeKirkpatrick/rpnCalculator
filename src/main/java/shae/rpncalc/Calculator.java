@@ -11,9 +11,16 @@ import static shae.rpncalc.Operator.NOT_OPERATOR;
 
 public class Calculator {
 
+    /* Stack to store numbers */
     private NumberStack stack;
+
+    /* Stack to store history of user input */
     private Stack<String> history;
+
+    /* Position in user input string */
     private int position;
+
+    /* Operator that has caused an error */
     private String errorOperator;
 
     public Calculator(int scale, int precision){
@@ -24,6 +31,7 @@ public class Calculator {
     }
 
     public String calculate(String input) {
+        /* For each user input element, perform appropriate operation and save to history */
         Arrays.asList(input.split(" ")).stream().forEach(element -> {
             if (!stack.error()) {
                 history.push(element);
@@ -78,6 +86,7 @@ public class Calculator {
     private void performUndo() {
         Operator operator = Operator.getOperator(history.pop());
 
+        /* If operator, undo operation. If number, undo adding to stack */
         if (operator != NOT_OPERATOR){
             String lastDigit = history.pop();
             if (operator.equals(Operator.SQRT)) {
@@ -97,6 +106,8 @@ public class Calculator {
     private void applyOperation(Operator operator) throws InsufficientParametersException {
         try {
             boolean isSqrt = operator.equals(Operator.SQRT);
+
+            /* Ensure there are enough parameters on stack for operation, then apply */
             if ((stack.size() > 1) || (stack.size() == 1 && isSqrt)){
                 BigDecimal result = isSqrt
                         ? operator.apply(stack.pop(), null)

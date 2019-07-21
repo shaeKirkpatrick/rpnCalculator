@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        /* Create calculator with 15 decimal points, smallest allowable to save on memory, and format precision of 10 */
         Calculator calculator = new Calculator(15, 10);
 
         Scanner input = new Scanner(System.in);
@@ -23,9 +24,7 @@ public class Main {
     }
 
     public static String cleanInput(String userInput) throws IllegalArgumentException {
-        //remove all non-operators, non-whitespace, and non digit chars
-         String cleanInput = userInput.replaceAll("[^\\^\\*\\+\\-\\'clear'\\'undo'\\'sqrt'\\d/\\s]", "");
-
-         return cleanInput;
+         /* Remove all non-operators, non-whitespace, and non digit chars */
+         return userInput.replaceAll("[^\\^\\*\\+\\-\\'clear'\\'undo'\\'sqrt'\\d/\\s]", "");
     }
 }

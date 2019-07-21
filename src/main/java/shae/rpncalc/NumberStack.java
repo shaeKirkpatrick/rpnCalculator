@@ -21,6 +21,7 @@ public class NumberStack {
         this.precision = precision;
         this.error = false;
 
+         /* Set formatting parameters */
          df = new DecimalFormat();
          df.setMaximumFractionDigits(this.precision);
          df.setMinimumFractionDigits(0);

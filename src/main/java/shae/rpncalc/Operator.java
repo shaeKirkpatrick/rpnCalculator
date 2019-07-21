@@ -28,8 +28,10 @@ public enum Operator {
     SQRT("sqrt", ""){
         public BigDecimal apply(BigDecimal lhs, BigDecimal unused){
             double doubleValue = new Double(lhs.toString());
+
+            /* Check value is not negative */
             if (doubleValue > 0){
-                return new BigDecimal(doubleValue).setScale(lhs.scale(), BigDecimal.ROUND_HALF_UP);
+                return new BigDecimal(Math.sqrt(doubleValue)).setScale(lhs.scale(), BigDecimal.ROUND_HALF_UP);
             } else {
                 throw new IllegalArgumentException("Error: Cannot perform sqrt on negative value");
             }
@@ -56,7 +58,7 @@ public enum Operator {
         }
     };
 
-    // Store String values in map to save on look up cost
+    /* Store String values in map to save on look up cost */
     private static final Map<String, Operator> operatorLookup = new HashMap<String, Operator>();
     static {
         for (Operator o : values()) {
