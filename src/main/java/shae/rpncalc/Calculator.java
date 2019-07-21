@@ -84,22 +84,26 @@ public class Calculator {
     }
 
     private void performUndo() {
-        Operator operator = Operator.getOperator(history.pop());
+        if (history.size() > 0) {
+            Operator operator = Operator.getOperator(history.pop());
 
-        /* If operator, undo operation. If number, undo adding to stack */
-        if (operator != NOT_OPERATOR){
-            String lastDigit = history.pop();
-            if (operator.equals(Operator.SQRT)) {
-                stack.pop();
-                performOperation(lastDigit);
+            /* If operator, undo operation. If number, undo adding to stack */
+            if (operator != NOT_OPERATOR) {
+                String lastDigit = history.pop();
+                if (operator.equals(Operator.SQRT)) {
+                    stack.pop();
+                    performOperation(lastDigit);
+                } else {
+                    performOperation(lastDigit);
+                    performOperation(operator.getReverseOperator());
+                    performOperation(lastDigit);
+                    history.push(lastDigit);
+                }
             } else {
-                performOperation(lastDigit);
-                performOperation(operator.getReverseOperator());
-                performOperation(lastDigit);
-                history.push(lastDigit);
+                stack.pop();
             }
         } else {
-            stack.pop();
+            throw new InsufficientParametersException()
         }
     }
 
