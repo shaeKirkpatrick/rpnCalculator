@@ -31,6 +31,7 @@ public class Calculator {
     }
 
     public String calculate(String input) {
+        position = 0;
         /* For each user input element, perform appropriate operation and save to history */
         Arrays.asList(input.split(" ")).stream().forEach(element -> {
             if (!stack.error()) {
@@ -38,8 +39,6 @@ public class Calculator {
                 performOperation(element);
             }
         });
-
-        position = 0;
 
         if (stack.error()){
             return String.format("operator %s (position: %d): insufficient parameters\n%s",
