@@ -1,4 +1,4 @@
-package java.rpn.exception;
+package shae.rpncalc.exception;
 
 public class InsufficientParametersException extends Throwable {
     public InsufficientParametersException(){

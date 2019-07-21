@@ -1,20 +1,18 @@
-package java.rpn;
+package shae.rpncalc;
 
-import java.rpn.exception.InsufficientParametersException;
+import shae.rpncalc.exception.InsufficientParametersException;
 import java.util.Arrays;
 import java.util.EmptyStackException;
-import java.rpn.util.OperatorUtil;
 
 import java.math.BigDecimal;
 import java.util.Stack;
-import java.util.function.BiFunction;
 
 public class Calculator {
 
     private RealNumberStack stack;
     private Stack<String> history;
     private int position;
-    private String errorOperator = "";
+    private String errorOperator;
 
     public Calculator(int scale, int precision){
         stack = new RealNumberStack(scale, precision);
@@ -46,30 +44,22 @@ public class Calculator {
     }
 
     private void performOperation(String element) {
+        Operator operator = Operator.getOperator(element);
         try {
             position++;
-            switch (element) {
-                case "+":
-                    applyOperation(stack, (rhs, lhs) -> lhs.add(rhs));
+            switch (operator) {
+                case ADD:
+                case SUBTRACT:
+                case MULTIPLY:
+                case DIVIDE:
+                case SQRT:
+                    applyOperation(operator);
                     break;
-                case "-":
-                    applyOperation(stack, (rhs, lhs) -> lhs.subtract(rhs));
-                    break;
-                case "*":
-                    applyOperation(stack, (rhs, lhs) -> lhs.multiply(rhs));
-                    break;
-                case "/":
-                    applyOperation(stack, (rhs, lhs) -> lhs.divide(rhs, lhs.scale(), BigDecimal.ROUND_HALF_UP));
-                    break;
-                case "sqrt":
-                    double evaluatedValue = Math.sqrt(new Double(stack.pop().toString()));
-                    stack.push(new BigDecimal(evaluatedValue).setScale(stack.getScale(), BigDecimal.ROUND_HALF_UP));
-                    break;
-                case "undo":
+                case UNDO:
                     history.pop();
                     performUndo();
                     break;
-                case "clear":
+                case CLEAR:
                     clear();
                     break;
                 default:
@@ -84,16 +74,16 @@ public class Calculator {
     }
 
     private void performUndo() {
-        String lastOperation = history.pop();
+        Operator operator = Operator.getOperator(history.pop());
 
-        if (OperatorUtil.isOperator(lastOperation)){
+        if (operator != null){
             String lastDigit = history.pop();
-            if (OperatorUtil.isSqrt(lastOperation)) {
+            if (operator.equals(Operator.SQRT)) {
                 stack.pop();
                 performOperation(lastDigit);
             } else {
                 performOperation(lastDigit);
-                performOperation(OperatorUtil.reverseOperator(lastOperation));
+                performOperation(operator.getReverseOperator());
                 performOperation(lastDigit);
                 history.push(lastDigit);
             }
@@ -102,10 +92,14 @@ public class Calculator {
         }
     }
 
-    private void applyOperation(RealNumberStack stack, BiFunction<BigDecimal, BigDecimal, BigDecimal> operation) throws InsufficientParametersException {
+    private void applyOperation(Operator operator) throws InsufficientParametersException {
         try {
-            if (stack.size() > 1) {
-                BigDecimal result = operation.apply(stack.pop(), stack.pop()).setScale(stack.getScale());
+            boolean isSqrt = operator.equals(Operator.SQRT);
+            if ((stack.size() > 1) || (stack.size() == 1 && isSqrt)){
+                BigDecimal result = isSqrt
+                        ? operator.apply(stack.pop(), null)
+                        : operator.apply(stack.pop(), stack.pop()).setScale(stack.getScale());
+
                 stack.push(result);
             } else {
                 stack.setError();

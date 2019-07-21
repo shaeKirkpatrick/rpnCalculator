@@ -1,4 +1,4 @@
-package java.rpn;
+package shae.rpncalc;
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ public class Main {
         while(input.hasNextLine()) {
             String inputString = input.nextLine();
             try {
-                System.out.println(calculator.calculate(validateAndCleanInput(inputString)));
+                System.out.println(calculator.calculate(cleanInput(inputString)));
                 System.out.print("% ");
             } catch(IllegalArgumentException e){
                 System.out.println(e.getMessage());
@@ -22,13 +22,9 @@ public class Main {
         }
     }
 
-    public static String validateAndCleanInput(String userInput) throws IllegalArgumentException {
+    public static String cleanInput(String userInput) throws IllegalArgumentException {
         //remove all non-operators, non-whitespace, and non digit chars
          String cleanInput = userInput.replaceAll("[^\\^\\*\\+\\-\\'clear'\\'undo'\\'sqrt'\\d/\\s]", "");
-
-         //if (userInput.equals(cleanInput)){
-         //    throw new IllegalArgumentException("Invalid input. Try again");
-        // }
 
          return cleanInput;
     }

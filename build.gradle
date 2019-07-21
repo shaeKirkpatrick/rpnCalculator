@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'application'
 
-mainClassName = 'main.java.rpn.Main'
+mainClassName = 'java.shae.rpncalc.Main'
 
 repositories {
     mavenCentral()
@@ -29,6 +29,7 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
     implementation 'junit:junit:4.12'
+
 }
 
 test {
@@ -43,6 +44,6 @@ jar {
     baseName = 'rpnCalculator'
 
     manifest {
-        attributes 'Main-Class': 'main.java.rpn.Main'
+        attributes 'Main-Class': 'java.shae.rpncalc.Main'
     }
 }

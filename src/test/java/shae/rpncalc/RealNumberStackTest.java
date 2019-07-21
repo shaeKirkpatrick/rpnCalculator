@@ -1,4 +1,4 @@
-package java.rpn;
+package shae.rpncalc;
 
 import java.math.BigDecimal;
 import java.util.EmptyStackException;
