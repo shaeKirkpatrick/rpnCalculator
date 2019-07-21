@@ -27,4 +27,4 @@ To build the executable, and run tests, use the following command from the rpnCa
 
 ## To run the executable
 To run the calculator executable, use the following command from the rpnCalculator directory:
-`java -jar rpnCalculator.jar`
+`java -jar ./build/libs/rpnCalculator.jar`
