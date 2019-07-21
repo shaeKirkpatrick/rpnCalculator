@@ -10,7 +10,7 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Please enter expressions in Reverse Polish Notation:\n");
+        System.out.print("Please enter expressions in Reverse Polish Notation:\n% ");
 
         while(input.hasNextLine()) {
             String inputString = input.nextLine();
