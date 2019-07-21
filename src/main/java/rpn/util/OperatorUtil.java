@@ -1,4 +1,4 @@
-package com.util;
+package java.rpn.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

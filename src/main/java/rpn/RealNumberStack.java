@@ -1,4 +1,4 @@
-package com;
+package java.rpn;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

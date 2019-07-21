@@ -20,3 +20,11 @@ causes no loss of precision).
 * If an operator cannot find a sufficient number of parameters on the stack, a warning is displayed:
 `operator <operator> (position: <pos>): insufficient parameters`
 * After displaying the warning, all further processing of the string terminates and the current state of the stack is displayed.
+
+## To build 
+To build the executable, and run tests, use the following command from the rpnCalculator directory:
+`./gradlew clean build`
+
+## To run the executable
+To run the calculator executable, use the following command from the rpnCalculator directory:
+`java -jar rpnCalculator.jar`

@@ -1,10 +1,12 @@
-package com;
+package java.rpn;
 
-import com.exception.CalculatorException;
-import com.util.OperatorUtil;
+import java.rpn.exception.InsufficientParametersException;
+import java.util.Arrays;
+import java.util.EmptyStackException;
+import java.rpn.util.OperatorUtil;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Stack;
 import java.util.function.BiFunction;
 
 public class Calculator {
@@ -76,16 +78,16 @@ public class Calculator {
             }
             position++;
 
-        }catch (CalculatorException e){
+        }catch (InsufficientParametersException e){
             errorOperator = element;
         }
     }
 
     private void performUndo() {
         String lastOperation = history.pop();
-        String lastDigit = history.pop();
 
         if (OperatorUtil.isOperator(lastOperation)){
+            String lastDigit = history.pop();
             if (OperatorUtil.isSqrt(lastOperation)) {
                 stack.pop();
                 performOperation(lastDigit);
@@ -93,23 +95,24 @@ public class Calculator {
                 performOperation(lastDigit);
                 performOperation(OperatorUtil.reverseOperator(lastOperation));
                 performOperation(lastDigit);
+                history.push(lastDigit);
             }
         } else {
             stack.pop();
         }
     }
 
-    private void applyOperation(RealNumberStack stack, BiFunction<BigDecimal, BigDecimal, BigDecimal> operation) throws CalculatorException {
+    private void applyOperation(RealNumberStack stack, BiFunction<BigDecimal, BigDecimal, BigDecimal> operation) throws InsufficientParametersException {
         try {
             if (stack.size() > 1) {
                 BigDecimal result = operation.apply(stack.pop(), stack.pop()).setScale(stack.getScale());
                 stack.push(result);
             } else {
                 stack.setError();
-                throw new CalculatorException();
+                throw new InsufficientParametersException();
             }
         } catch (EmptyStackException e) {
-            throw new CalculatorException();
+            throw new InsufficientParametersException();
         }
     }
 }

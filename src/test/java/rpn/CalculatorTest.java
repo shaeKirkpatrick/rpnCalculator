@@ -1,9 +1,9 @@
-package com;
+package java.rpn;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CalculatorTest {
 
@@ -142,5 +142,23 @@ class CalculatorTest {
 
         result = calculator.calculate("undo");
         assertEquals("stack: 64", result);
+    }
+
+    @Test
+    void calculateUndoMultiplyOperations(){
+        String result = calculator.calculate("2 1 / 3 4 *");
+        assertEquals("stack: 2 12", result);
+
+        result = calculator.calculate("undo");
+        assertEquals("stack: 2 3 4", result);
+
+        result = calculator.calculate("undo");
+        assertEquals("stack: 2 3", result);
+
+        result = calculator.calculate("undo");
+        assertEquals("stack: 2", result);
+
+        result = calculator.calculate("undo");
+        assertEquals("stack: 2 1", result);
     }
 }

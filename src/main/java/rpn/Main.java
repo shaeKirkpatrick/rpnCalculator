@@ -1,4 +1,4 @@
-package com;
+package java.rpn;
 
 import java.util.Scanner;
 
@@ -8,6 +8,8 @@ public class Main {
         Calculator calculator = new Calculator(15, 10);
 
         Scanner input = new Scanner(System.in);
+
+        System.out.println("Please enter expression in Reverse Polish Notation:\n");
 
         while(input.hasNextLine()) {
             String inputString = input.nextLine();
@@ -24,9 +26,9 @@ public class Main {
         //remove all non-operators, non-whitespace, and non digit chars
          String cleanInput = userInput.replaceAll("[^\\^\\*\\+\\-\\'clear'\\'undo'\\'sqrt'\\d/\\s]", "");
 
-         if (userInput.equals(cleanInput)){
-             throw new IllegalArgumentException("Invalid input. Try again");
-         }
+         //if (userInput.equals(cleanInput)){
+         //    throw new IllegalArgumentException("Invalid input. Try again");
+        // }
 
          return cleanInput;
     }
