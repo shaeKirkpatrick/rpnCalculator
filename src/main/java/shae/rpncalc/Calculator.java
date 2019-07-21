@@ -39,6 +39,8 @@ public class Calculator {
             }
         });
 
+        position = 0;
+
         if (stack.error()){
             return String.format("operator %s (position: %d): insufficient parameters\n%s",
                     errorOperator, position, stack.getResult());
