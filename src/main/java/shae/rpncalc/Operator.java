@@ -27,8 +27,12 @@ public enum Operator {
     },
     SQRT("sqrt", ""){
         public BigDecimal apply(BigDecimal lhs, BigDecimal unused){
-            double evaluatedValue = Math.sqrt(new Double(lhs.toString()));
-            return new BigDecimal(evaluatedValue).setScale(lhs.scale(), BigDecimal.ROUND_HALF_UP);
+            double doubleValue = new Double(lhs.toString());
+            if (doubleValue > 0){
+                return new BigDecimal(doubleValue).setScale(lhs.scale(), BigDecimal.ROUND_HALF_UP);
+            } else {
+                throw new IllegalArgumentException("Error: Cannot perform sqrt on negative value");
+            }
         }
     },
     UNDO("undo", ""){

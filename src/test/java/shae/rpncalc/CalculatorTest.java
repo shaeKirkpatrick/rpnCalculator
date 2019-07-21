@@ -3,6 +3,7 @@ package shae.rpncalc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class CalculatorTest {
 
@@ -159,5 +160,64 @@ class CalculatorTest {
 
         result = calculator.calculate("undo");
         assertEquals("stack: 2 1", result);
+    }
+
+    @Test
+    void calculateNegativeAddition(){
+        String result = calculator.calculate("-5 -1 +");
+        assertEquals("stack: -6", result);
+
+        result = calculator.calculate("7 +");
+        assertEquals("stack: 1", result);
+    }
+
+    @Test
+    void calculateNegativeSubtraction(){
+        String result = calculator.calculate("-5 -1 -");
+        assertEquals("stack: -4", result);
+
+        result = calculator.calculate("-5 -");
+        assertEquals("stack: 1", result);
+    }
+
+    @Test
+    void calculateNegativeMultiply(){
+        String result = calculator.calculate("5 -1 *");
+        assertEquals("stack: -5", result);
+
+        result = calculator.calculate("-1 *");
+        assertEquals("stack: 5", result);
+    }
+
+    @Test
+    void calculateNegativeDivide(){
+        String result = calculator.calculate("5 -1 /");
+        assertEquals("stack: -5", result);
+
+        result = calculator.calculate("-1 /");
+        assertEquals("stack: 5", result);
+    }
+
+    @Test
+    void calculateNegativeSqrt(){
+        try {
+            String result = calculator.calculate("-64 sqrt");
+            fail();
+        }catch( IllegalArgumentException e){
+            assertEquals(e.getMessage(), "Error: Cannot perform sqrt on negative value");
+        }
+
+    }
+
+    @Test
+    void calculateTenDigitResult(){
+        String result = calculator.calculate("1.111111111111111 1.111111111111111 +");
+        assertEquals("stack: 2.2222222222", result);
+    }
+
+    @Test
+    void calculateFifteenDigitPrecision(){
+        String result = calculator.calculate("1.111111111155555 1.111111111144445 +");
+        assertEquals("stack: 2.2222222223", result);
     }
 }

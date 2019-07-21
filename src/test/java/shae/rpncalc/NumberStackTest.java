@@ -34,4 +34,11 @@ class NumberStackTest {
 
         assertEquals("stack: 1 10 0", stack.getResult());
     }
+
+    @Test
+    void testGetResultTenDigitFormat() {
+        stack.push(new BigDecimal("1.234567891234567"));
+
+        assertEquals("stack: 1.2345678912", stack.getResult());
+    }
 }

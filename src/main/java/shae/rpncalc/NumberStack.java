@@ -62,14 +62,12 @@ public class NumberStack {
     }
 
     public String getResult(){
-
         String stackString = "stack:";
 
         for(BigDecimal number : stack) {
             String temp = df.format(number);
             stackString += (" " + temp);
         }
-
         return stackString;
     }
 }
